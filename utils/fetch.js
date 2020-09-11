@@ -9,7 +9,8 @@ function _fetch (addr, options) {
   if (!options.headers) options.headers = {}
 
   if (token.length > 0) options.headers.Authorization = token
-  options.headers['User-Agent'] = 'hcheck-auto/1.0'
+  options.headers['User-Agent'] = constant.fakeUserAgent
+  options.headers['X-Requested-With'] = 'XMLHttpRequest'
 
   return fetch(baseUrl + addr, options)
 }

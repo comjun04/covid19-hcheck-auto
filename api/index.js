@@ -1,5 +1,7 @@
 module.exports = {
   getSchoolCode: require('./getSchoolCode'),
   getUserToken: require('./getUserToken'),
-  isPasswordSet: require('./isPasswordSet')
+  getGroupList: require('./getGroupList'),
+  getSurveyToken: require('./getSurveyToken'),
+  sendSurveyData: require('./sendSurveyData')
 }
