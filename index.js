@@ -10,14 +10,16 @@ const api = require('./api');
 (async () => {
   logger.logDisclaimer()
 
-  // Step 1. 학교 코드 가져오기
-  let schoolCode = ''
+  // Step 1. 학교 데이터 가져오기
+  let schoolData = {}
   try {
-    schoolCode = await api.getSchoolCode(school)
-    logger.logStep(1, '학교 코드 가져오기 완료')
+    schoolData = await api.getSchoolData(school)
+    logger.logStep(1, '학교 데이터 가져오기 완료')
   } catch (e) {
     return logger.logError(e)
   }
+  const { schoolCode } = schoolData
+  fetch.setRequestUrl(schoolData.requestUrl)
 
   // Step 2. 학생 인증 후 참여자 목록 조회 토큰 가져오기
   let userToken = ''

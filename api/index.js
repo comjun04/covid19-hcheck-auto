@@ -1,5 +1,5 @@
 module.exports = {
-  getSchoolCode: require('./getSchoolCode'),
+  getSchoolData: require('./getSchoolData'),
   getUserToken: require('./getUserToken'),
   getGroupList: require('./getGroupList'),
   getSurveyToken: require('./getSurveyToken'),
