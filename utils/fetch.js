@@ -17,6 +17,6 @@ function _fetch (addr, options) {
 }
 
 _fetch.setToken = (tk) => { token = tk }
-_fetch.setRequestUrl = (url) => { reuqestUrl = url }
+_fetch.setRequestUrl = (url) => { requestUrl = url }
 
 module.exports = _fetch

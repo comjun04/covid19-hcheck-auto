@@ -19,7 +19,7 @@ const api = require('./api');
     return logger.logError(e)
   }
   const { schoolCode } = schoolData
-  fetch.setRequestUrl(schoolData.requestUrl)
+  fetch.setRequestUrl('https://' + schoolData.requestUrl)
 
   // Step 2. 학생 인증 후 참여자 목록 조회 토큰 가져오기
   let userToken = ''
