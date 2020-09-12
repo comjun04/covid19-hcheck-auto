@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^4.1.0",
     "jsencrypt": "^3.0.0-rc.1",
     "node-fetch": "^2.6.1"
   }

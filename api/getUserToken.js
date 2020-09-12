@@ -17,7 +17,7 @@ module.exports = async (schoolCode, name, birthday) => {
     .then(json => {
       if (json.isError) throw new Error('입력하신 학생정보가 올바르지 않아요! 학교 정보, 학생 이름, 생년월일을 확인해주세요!')
       else if (json.token) return json.token
-      else throw new Error('인증 토큰 조회에 실패했습니다. 구조가 변경되었을 가능성이 있으니 이슈를 날려주세요.')
+      else throw new Error('인증 토큰 조회에 실패했습니다. 구조가 변경되었을 가능성이 있으니 개발자에게 알려주세요.')
     })
 
   return result
