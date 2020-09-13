@@ -1,4 +1,4 @@
-const { fetch, logger } = require('./utils')
+const { fetch, logger, generateSchoolListTable } = require('./utils')
 
 const {
   school,
@@ -13,7 +13,13 @@ const api = require('./api');
   // Step 1. 학교 데이터 가져오기
   let schoolData = {}
   try {
-    schoolData = await api.getSchoolData(school)
+    const schoolList = await api.getSchoolData(school)
+    if (schoolList.length < 1) return logger.logError('검색된 학교가 하나도 없어요! 학교 이름을 정확하게 입력해주세요!')
+    else if (schoolList.length > 1) {
+      logger.logError('너무 많은 학교가 검색되었어요! 아래 표를 확인하여 자신이 다니는 학교를 확인 후 직접 학교 코드를 등록해 주세요!')
+      return console.log(generateSchoolListTable(schoolList))
+    }
+
     logger.logStep(1, '학교 데이터 가져오기 완료')
   } catch (e) {
     return logger.logError(e)

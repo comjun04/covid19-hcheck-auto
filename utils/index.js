@@ -2,5 +2,6 @@ module.exports = {
   constant: require('./constant'),
   encrypt: require('./encrypt'),
   fetch: require('./fetch'),
-  logger: require('./logger')
+  logger: require('./logger'),
+  generateSchoolListTable: require('./generateSchoolListTable')
 }
