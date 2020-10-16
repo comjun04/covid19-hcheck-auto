@@ -18,13 +18,13 @@ const api = require('./api');
     else if (schoolList.length > 1) {
       logger.logError('너무 많은 학교가 검색되었어요! 아래 표를 확인하여 자신이 다니는 학교를 확인 후 직접 학교 코드를 등록해 주세요!')
       return console.log(generateSchoolListTable(schoolList))
-    }
+    } else schoolData = schoolList[0]
 
     logger.logStep(1, '학교 데이터 가져오기 완료')
   } catch (e) {
     return logger.logError(e)
   }
-  const { schoolCode } = schoolData
+  const schoolCode = schoolData.code
   fetch.setRequestUrl('https://' + schoolData.requestUrl)
 
   // Step 2. 학생 인증 후 참여자 목록 조회 토큰 가져오기
