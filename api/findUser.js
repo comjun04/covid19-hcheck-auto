@@ -4,12 +4,14 @@ const { constant, fetch, encrypt } = require('../utils')
 
 module.exports = async (schoolCode, name, birthday) => {
   const reqBody = {
-    orgcode: schoolCode,
+    orgCode: schoolCode,
     name: encrypt(name),
-    birthday: encrypt(birthday)
+    birthday: encrypt(birthday),
+    loginType: 'school',
+    stdntPNo: null
   }
 
-  const result = await fetch('/loginwithschool', {
+  const result = await fetch('/v2/findUser', {
     method: 'POST',
     headers: { 'Content-Type': constant.jsonContentType },
     body: JSON.stringify(reqBody)
