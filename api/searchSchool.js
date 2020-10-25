@@ -12,9 +12,10 @@ module.exports = async (school) => {
   queryParams.set('lctnScCode', regionCode)
   queryParams.set('schulCrseScCode', schoolLevelCode)
   queryParams.set('orgName', school.name)
+  queryParams.set('loginType', 'school')
   queryParams.set('currentPageNo', 1)
 
-  const result = await fetch('/school?' + queryParams.toString())
+  const result = await fetch('/v2/searchSchool?' + queryParams.toString())
     .then(res => res.json())
     .then(json => {
       if (!Array.isArray(json.schulList) || json.schulList.length < 1) return []

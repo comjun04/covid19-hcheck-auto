@@ -1,6 +1,6 @@
 module.exports = {
-  getSchoolData: require('./getSchoolData'),
-  getUserToken: require('./getUserToken'),
+  searchSchool: require('./searchSchool'),
+  findUser: require('./findUser'),
   getGroupList: require('./getGroupList'),
   getSurveyToken: require('./getSurveyToken'),
   sendSurveyData: require('./sendSurveyData')

@@ -14,7 +14,7 @@ const api = require('./api'); // semicolon is needed to break statement
   let schoolData = {}
   const preEnteredCode = school.code
   try {
-    const schoolList = await api.getSchoolData(school)
+    const schoolList = await api.searchSchool(school)
     if (schoolList.length < 1) return logger.logError('검색된 학교가 하나도 없어요! 학교 이름을 정확하게 입력해주세요!')
     else if (preEnteredCode) {
       schoolData = schoolList.find(sch => preEnteredCode === sch.code)
@@ -37,7 +37,7 @@ const api = require('./api'); // semicolon is needed to break statement
   // Step 2. 학생 인증 후 참여자 목록 조회 토큰 가져오기
   let userToken = ''
   try {
-    userToken = await api.getUserToken(schoolCode, studentName, birthday)
+    userToken = await api.findUser(schoolCode, studentName, birthday)
     logger.logStep(2, '학생 인증 완료')
   } catch (e) {
     return logger.logError(e)
@@ -59,7 +59,7 @@ const api = require('./api'); // semicolon is needed to break statement
   logger.logStep(5, '설문 전송에 사용되는 토큰 가져오기 완료')
 
   // Step 6. 설문 전송
-  await api.sendSurveyData(surveyToken)
+  await api.sendSurveyData(surveyToken, user.name)
   logger.logStep(6, '설문 데이터 전송 완료')
 
   // TODO Step 7. 정상적으로 처리되었는지 확인
