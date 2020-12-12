@@ -3,7 +3,8 @@ const { fetch, logger, generateSchoolListTable } = require('./utils')
 const {
   school,
   studentName,
-  birthday
+  birthday,
+  password
 } = require('./config.json')
 const api = require('./api'); // semicolon is needed to break statement
 
@@ -30,7 +31,7 @@ const api = require('./api'); // semicolon is needed to break statement
     return logger.logError(e)
   }
 
-  logger.logStep(1, '학교 데이터 가져오기 완료')
+  logger.logStep('학교 데이터 가져오기 완료')
   fetch.setRequestUrl('https://' + schoolData.requestUrl)
   const schoolCode = schoolData.code
 
@@ -38,29 +39,39 @@ const api = require('./api'); // semicolon is needed to break statement
   let userToken = ''
   try {
     userToken = await api.findUser(schoolCode, studentName, birthday)
-    logger.logStep(2, '학생 인증 완료')
+    logger.logStep('학생 인증 완료')
   } catch (e) {
     return logger.logError(e)
   }
 
   fetch.setToken(userToken)
 
-  // Step 3. 참여자 목록 조회
-  const usersInAccount = await api.getGroupList()
-  logger.logStep(3, '참여자 목록 조회 완료')
+  // Step 3. 비밀번호 확인
+  try {
+    userToken = await api.checkPassword(userToken, password)
+    logger.logStep('비밀번호 확인 완료')
+  } catch (e) {
+    return logger.logError(e)
+  }
 
-  // Step 4. 학생 데이터 가져오기 (갱신 토큰)
+  fetch.setToken(userToken)
+
+  // Step 4. 참여자 목록 조회
+  const usersInAccount = await api.getGroupList()
+  logger.logStep('참여자 목록 조회 완료')
+
+  // Step 5. 학생 데이터 가져오기 (갱신 토큰)
   const user = usersInAccount.find(item => item.name === studentName)
   if (!user) return logger.logError('알 수 없는 이유로 참여자 목록에서 학생정보를 불러오지 못했어요.')
-  else logger.logStep(4, '참여자 목록에서 학생정보 가져오기 완료')
+  else logger.logStep('참여자 목록에서 학생정보 가져오기 완료')
 
-  // Step 5. 설문 토큰 가져오기 (갱신 토큰 이용)
+  // Step 6. 설문 토큰 가져오기 (갱신 토큰 이용)
   const surveyToken = await api.getSurveyToken(schoolCode, user)
-  logger.logStep(5, '설문 전송에 사용되는 토큰 가져오기 완료')
+  logger.logStep('설문 전송에 사용되는 토큰 가져오기 완료')
 
-  // Step 6. 설문 전송
+  // Step 7. 설문 전송
   await api.sendSurveyData(surveyToken, user.name)
-  logger.logStep(6, '설문 데이터 전송 완료')
+  logger.logStep('설문 데이터 전송 완료')
 
   // TODO Step 7. 정상적으로 처리되었는지 확인
 

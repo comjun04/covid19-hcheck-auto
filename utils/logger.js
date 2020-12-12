@@ -1,9 +1,10 @@
 const chalk = require('chalk')
 
-const totalStep = 6
+let step = 1
+const totalStep = 7
 
-module.exports.logStep = (step, str) => {
-  console.log(`${chalk.cyan(`(${step}/${totalStep})`)} ${str}`)
+module.exports.logStep = (str) => {
+  console.log(`${chalk.cyan(`(${step++}/${totalStep})`)} ${str}`)
 }
 
 module.exports.logError = (err) => {
