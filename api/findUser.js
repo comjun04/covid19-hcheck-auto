@@ -1,5 +1,3 @@
-const { URLSearchParams } = require('url')
-
 const { constant, fetch, encrypt } = require('../utils')
 
 module.exports = async (schoolCode, name, birthday) => {
